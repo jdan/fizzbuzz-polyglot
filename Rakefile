@@ -1,47 +1,26 @@
 require 'pathname'
-require 'net/http'
-require 'timeout'
 require 'test/unit'
-require 'random-port'
 
 include Test::Unit::Assertions
 
 task default: %[test]
 
 task :test do
-  `ls */**/Dockerfile`.lines.each do |line|
-    Timeout::timeout(30) do
-      dirname = Pathname.new(line).dirname
-      print dirname
+  if ARGV.length === 1
+    files = `find -name 'Dockerfile' | cut -c3-`.lines
+    dirs = files.map { |f| Pathname.new(f).dirname }
+  else
+    dirs = ARGV.drop(1)
+  end
 
-      RandomPort::Pool::SINGLETON.acquire do |port|
-        `docker build --quiet -t #{dirname} #{dirname}`
-        pid = `docker run --rm -d -p #{port}:80 #{dirname}`
+  one_true_fizzbuzz = File.read('fizzbuzz.example')
 
-        uri = URI("http://localhost:#{port}/jordan")
+  dirs.each_with_index do |dir, i|
+    print "[#{i+1}/#{dirs.count}] #{dir}..."
 
-        res = nil
-        Net::HTTP.start(uri.host, uri.port) do |http|
-          http.read_timeout = 0.25
-          request = Net::HTTP::Get.new uri
+    `docker build --quiet -t #{dir} #{dir}`
+    assert_equal one_true_fizzbuzz, `docker run --rm #{dir}`
 
-          begin
-            print "."
-            res = http.request request
-          rescue Exception => e
-            sleep 0.25
-            retry
-          end
-        end
-
-        assert_equal "200", res.code
-        assert_equal "text/html", res.content_type
-        assert_equal "Hello, jordan!", res.body
-
-        Process.fork { `docker stop #{pid}` }
-
-        print "OK\n"
-      end
-    end
+    print "OK\n"
   end
 end
