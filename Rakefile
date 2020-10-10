@@ -14,13 +14,18 @@ task :test do
   end
 
   one_true_fizzbuzz = File.read('fizzbuzz.example')
+  completed = 1
+  threads = []
 
   dirs.each_with_index do |dir, i|
-    print "[#{i+1}/#{dirs.count}] #{dir}..."
+    threads << Thread.new {
+      `docker build --quiet -t #{dir} #{dir}`
+      assert_equal one_true_fizzbuzz, `docker run --rm #{dir}`
 
-    `docker build --quiet -t #{dir} #{dir}`
-    assert_equal one_true_fizzbuzz, `docker run --rm #{dir}`
-
-    print "OK\n"
+      puts "[#{completed}/#{dirs.count}] #{dir}...OK"
+      completed += 1
+    }
   end
+
+  threads.each(&:join)
 end
