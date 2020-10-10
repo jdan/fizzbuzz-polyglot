@@ -1,11 +1,11 @@
 ## fizzbuzz-polyglot [![Build Status](https://travis-ci.org/jdan/fizzbuzz-polyglot.svg?branch=main)](https://travis-ci.org/jdan/fizzbuzz-polyglot)
 
 An experiment in writing [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz)
-in every language
+in every language.
 
 ### Adding a new language
 
-Example: [factor](/blob/main/factor) - https://factorcode.org/
+Example: [factor](/blob/main/factor) - https://factorcode.org
 
 1. Create a folder with the language name
 2. Write code in your language to print the first [100 numbers in FizzBuzz](/blob/main/fizzbuzz.example)
