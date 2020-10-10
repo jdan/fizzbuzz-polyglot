@@ -1,3 +1,3 @@
-## webapp-polyglot [![Build Status](https://travis-ci.org/jdan/webapp-polyglot.svg?branch=main)](https://travis-ci.org/jdan/webapp-polyglot)
+## fizzbuzz-polyglot [![Build Status](https://travis-ci.org/jdan/fizzbuzz-polyglot.svg?branch=main)](https://travis-ci.org/jdan/fizzbuzz-polyglot)
 
-An experiment in Hello, world! webapps in every language
+An experiment in writing FizzBuzz in every language
