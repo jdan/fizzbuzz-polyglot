@@ -6,7 +6,7 @@ include Test::Unit::Assertions
 task default: %[test]
 
 task :test do
-  if ARGV.length === 1
+  if ARGV.length <= 1
     files = `find -name 'Dockerfile' | cut -c3-`.lines
     dirs = files.map { |f| Pathname.new(f).dirname }
   else
