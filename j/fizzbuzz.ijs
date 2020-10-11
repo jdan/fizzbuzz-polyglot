@@ -8,5 +8,6 @@ fzbz =: verb define
   echo > (attempts i. 1) { 'FizzBuzz';'Buzz';'Fizz';(":y)
 )
 
+NB. run fzbz over each of the numbers [1,100]
 fzbz"0 >:i.100
 exit ''
