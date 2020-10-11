@@ -1,12 +1,4 @@
-FROM ubuntu
-
-RUN apt-get update \
-  && apt-get install -y wget \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN wget https://downloads.factorcode.org/releases/0.98/factor-linux-x86-64-0.98.tar.gz \
-  && tar -xvf factor-linux-x86-64-0.98.tar.gz \
-  && rm factor-linux-x86-64-0.98.tar.gz
+FROM jdan/factor-sqlite:0.0.1
 
 WORKDIR /factor
 COPY fizzbuzz.factor .
