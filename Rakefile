@@ -6,9 +6,11 @@ include Test::Unit::Assertions
 task default: %[test]
 
 task :test do
+  quiet_flag = ''
   if ARGV.length <= 1
     files = `find -name 'Dockerfile' | cut -c3-`.lines
     dirs = files.map { |f| Pathname.new(f).dirname }
+    quiet_flag = '--quiet'
   else
     dirs = ARGV.drop(1)
   end
@@ -19,7 +21,7 @@ task :test do
 
   dirs.each_with_index do |dir, i|
     threads << Thread.new {
-      `docker build --quiet -t #{dir} #{dir}`
+      `docker build #{quiet_flag} -t #{dir} #{dir}`
       assert_equal one_true_fizzbuzz, `docker run --rm #{dir}`
 
       puts "[#{completed}/#{dirs.count}] #{dir}...OK"
