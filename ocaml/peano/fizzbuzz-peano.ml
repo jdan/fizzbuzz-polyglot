@@ -13,7 +13,6 @@ let rec sub a b = match (a, b) with
 
 let rec mult a b = match (a, b) with
   | (_, O) -> O
-  | (_, S O) -> a
   | (_, S b') -> add a (mult a b')
 
 let rec lt a b = match (a, b) with
