@@ -3,6 +3,22 @@
 An experiment in writing [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz)
 in every language.
 
+```
+rake test
+[1/7] ruby...OK
+[2/7] javascript...OK
+[3/7] javascript/from-npm...OK
+[4/7] ocaml...OK
+[5/7] ocaml/peano...OK
+[6/7] j...OK
+[7/7] factor...OK
+```
+
+```
+rake test javascript
+javascript...OK
+```
+
 ### Adding a new language
 
 Example: [factor](/factor) - https://factorcode.org
