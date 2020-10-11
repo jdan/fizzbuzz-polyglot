@@ -1,3 +1,3 @@
 ## from-npm
 
-As if you were interviewing
+As if you were actually on the job
