@@ -1,5 +1,5 @@
 1..100 | ForEach-Object {
-  if (($_ % 15) -eq 0) {
+  if ($_ % 15 -eq 0) {
     Write-Output "FizzBuzz"
   }
   elseif ($_ % 3 -eq 0) {
