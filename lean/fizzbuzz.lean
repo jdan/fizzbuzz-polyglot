@@ -7,6 +7,15 @@ def fizzbuzz (n : ℕ) : string :=
   else if 5 ∣ n then "Buzz"
   else to_string n
 
+lemma both_divisors_must_divide {n a b : ℕ} : a ∣ b -> ¬ a ∣ n -> ¬ b ∣ n :=
+begin
+  intros h₁ h₂ h,
+  cases exists_eq_mul_left_of_dvd h₁ with c hc,
+  rw hc at h,
+  have contra := dvd_of_mul_left_dvd h,
+  contradiction,
+end
+
 lemma dvd_15_is_fizzbuzz (n : ℕ) : 15 ∣ n → fizzbuzz n = "FizzBuzz" :=
 begin
   intro h,
@@ -19,13 +28,8 @@ end
 lemma dvd_3_alone_is_fizz (n : ℕ) : 3 ∣ n → ¬ 5 ∣ n → fizzbuzz n = "Fizz" :=
 begin
   intros h₃ h₅,
-  have h15 : ¬ 15 ∣ n := begin
-    intro h,
-    have q : 15 = 3 * 5, { refl },
-    rw q at h,
-    have contra := dvd_of_mul_left_dvd h,
-    contradiction,
-  end,
+  have q : 5 ∣ 15 := by { apply dvd.intro 3, refl },
+  have h15 : ¬ 15 ∣ n := both_divisors_must_divide q h₅,
   rw ← eq_false at h15,
 
   -- Begin traversing my if statements
@@ -42,13 +46,9 @@ end
 lemma dvd_5_alone_is_buzz (n : ℕ) : 5 ∣ n → ¬ 3 ∣ n → fizzbuzz n = "Buzz" :=
 begin
   intros h₅ h₃,
-  have h15 : ¬ 15 ∣ n := begin
-    intro h,
-    have q : 15 = 3 * 5, { refl },
-    rw q at h,
-    have contra := dvd_of_mul_right_dvd h,
-    contradiction,
-  end,
+  -- can I inline `q` somehow?
+  have q : 3 ∣ 15 := by { apply dvd.intro 5, refl },
+  have h15 : ¬ 15 ∣ n := both_divisors_must_divide q h₃,
   rw ← eq_false at h15,
 
   -- Begin traversing my if statements
@@ -68,13 +68,8 @@ end
 lemma dvd_neither_3_nor_5_is_stringified (n : ℕ) : ¬ 3 ∣ n → ¬ 5 ∣ n → fizzbuzz n = to_string n :=
 begin
   intros h₃ h₅,
-  have h15 : ¬ 15 ∣ n := begin
-    intro h,
-    have q : 15 = 3 * 5, { refl },
-    rw q at h,
-    have contra := dvd_of_mul_right_dvd h,
-    contradiction,
-  end,
+  have q : 3 ∣ 15 := by { apply dvd.intro 5, refl },
+  have h15 : ¬ 15 ∣ n := both_divisors_must_divide q h₃,
   rw ← eq_false at h15,
   rw ← eq_false at h₃,
   rw ← eq_false at h₅,
