@@ -1,8 +1,7 @@
 FROM node:alpine
 
-COPY cheat.js .
-COPY package.json .
-COPY package-lock.json .
+WORKDIR /app
+COPY ./ /app
 
 RUN npm install
 
