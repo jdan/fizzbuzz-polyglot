@@ -5,7 +5,7 @@ RUN mkdir -p /root/dos
 
 WORKDIR /root/dos
 
-RUN sed -i -e "$ a http://dl-cdn.alpinelinux.org/alpine/edge/testing" /etc/apk/repositories && \
+RUN sed -i -e "$ a http://dl-cdn.alpinelinux.org/alpine/edge/community" /etc/apk/repositories && \
 	apk update && \
 	apk add dosbox zip dos2unix
 
