@@ -1,0 +1,23 @@
+mymain : '{IO} ()
+mymain _ =
+  go : Nat -> Text
+  go n =
+    if 0 == mod n 15
+    then "FizzBuzz"
+    else if 0 == mod n 3
+    then "Fizz"
+    else if 0 == mod n 5
+    then "Buzz"
+    else toText n
+
+  loop n writer =
+    if n == 101
+    then ()
+    else
+      putText writer (go n ++ "\n")
+      loop (n + 1) writer
+
+  use .base.io
+  writer = openFile (FilePath.FilePath "./output.txt") Mode.Write
+  loop 1 writer
+  closeFile writer
