@@ -1,4 +1,4 @@
-## fizzbuzz-polyglot [![Build Status](https://app.travis-ci.com/jdan/fizzbuzz-polyglot.svg?branch=main)](https://app.travis-ci.com/jdan/fizzbuzz-polyglot)
+## fizzbuzz-polyglot
 
 An experiment in writing [FizzBuzz](https://en.wikipedia.org/wiki/Fizz_buzz)
 in every language.
