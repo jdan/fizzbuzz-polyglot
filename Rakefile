@@ -22,7 +22,7 @@ task :test do
   dirs.each_with_index do |dir, i|
     threads << Thread.new {
       `docker build #{quiet_flag} -t #{dir} #{dir}`
-      assert_equal one_true_fizzbuzz, `docker run --rm #{dir}`
+      assert_equal one_true_fizzbuzz, `docker run --network none --rm #{dir}`
 
       puts "[#{completed}/#{dirs.count}] #{dir}...OK"
       completed += 1
