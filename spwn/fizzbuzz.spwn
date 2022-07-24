@@ -1,0 +1,8 @@
+for i in 1..101 {
+    match 0 {
+        ==(i % 15): $.print("FizzBuzz"),
+        ==(i % 3): $.print("Fizz"),
+        ==(i % 5): $.print("Buzz"),
+        else: $.print(i),
+    }
+}
